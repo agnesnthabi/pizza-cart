@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfect Pizza</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2" defer></script>
+</head>
+<body>
+    <div x-data="pizzaCart()">
+        <h1>Perfect Pizza</h1>
+        
+        <div class="pizzas">
+            <!-- Small Pizza -->
+            <div class="pizza small_pizza">
+                <img src="https://img.freepik.com/premium-photo/pizza-with-slice-pizza-being-melted-it_854441-9.jpg?w=360" width="75">
+                <h2>Small Pizza</h2>
+                <h3>R29.95</h3>
+                <div><span class="special">CHICKEN & MAYO</span> - Roast chicken and mayonnaise</div>
+                <button @click="addToCart('small')">Order Small Pizza</button>
+            </div>
+            
+            <!-- Medium Pizza -->
+            <div class="pizza medium_pizza">
+                <img src="https://img.freepik.com/premium-photo/pizza-with-slice-pizza-being-melted-it_854441-9.jpg?w=360" width="120">
+                <h2>Medium Pizza</h2>
+                <h3>R75.00</h3>
+                <div><span class="special">SAUCY CHICKEN & MUSHROOM</span> - Roast chicken and mushrooms, drizzled in a sweet chilli mayo.</div>
+                <button @click="addToCart('medium')">Order Medium Pizza</button>
+            </div>
+            
+            <!-- Large Pizza -->
+            <div class="pizza large_pizza">
+                <img src="https://img.freepik.com/premium-photo/pizza-with-slice-pizza-being-melted-it_854441-9.jpg?w=360" width="195">
+                <h2>Large Pizza</h2>
+                <h3>R189.90</h3>
+                <div><span class="special">PEPPERONI - HOT OR NOT?</span> - Our famous Margherita covered in thinly sliced pepperoni.</div>
+                <button @click="addToCart('large')">Order Large Pizza</button>
+            </div>
+        </div>
+
+        <!-- Shopping Cart -->
+        <div class="cart" x-show="cart.totalItems > 0">
+            <h2>Your Cart</h2>
+            <div x-show="cart.small > 0">
+                <p>Small Pizzas: <span x-text="cart.small"></span> <button @click="removeFromCart('small')">Remove</button></p>
+            </div>
+            <div x-show="cart.medium > 0">
+                <p>Medium Pizzas: <span x-text="cart.medium"></span> <button @click="removeFromCart('medium')">Remove</button></p>
+            </div>
+            <div x-show="cart.large > 0">
+                <p>Large Pizzas: <span x-text="cart.large"></span> <button @click="removeFromCart('large')">Remove</button></p>
+            </div>
+            <p>Total Cost: $<span x-text="cart.totalCost.toFixed(2)"></span></p>
+            <div>
+                <button @click="checkout()">Check Out</button>
+                <button @click="clearCart()">Clear Cart</button>
+            </div>
+        </div>
+
+        <!-- Checkout Message -->
+        <div x-show="showMessage" x-text="message"></div>
+    </div>
+
+    <script>
+        function pizzaCart() {
+            return {
+                cart: {
+                    small: 0,
+                    medium: 0,
+                    large: 0,
+                    totalItems: 0,
+                    totalCost: 0
+                },
+                prices: {
+                    small: 29.95,
+                    medium: 75.00,
+                    large: 189.90
+                },
+                showMessage: false,
+                message: '',
+                addToCart(size) {
+                    this.cart[size]++;
+                    this.cart.totalItems++;
+                    this.cart.totalCost += this.prices[size];
+                },
+                removeFromCart(size) {
+                    if (this.cart[size] > 0) {
+                        this.cart[size]--;
+                        this.cart.totalItems--;
+                        this.cart.totalCost -= this.prices[size];
+                    }
+                },
+                clearCart() {
+                    this.cart = { small: 0, medium: 0, large: 0, totalItems: 0, totalCost: 0 };
+                },
+                checkout() {
+                    const payment = prompt("Enter payment amount:");
+                    if (payment >= this.cart.totalCost) {
+                        this.showMessage = true;
+                        this.message = "Enjoy your pizzas!";
+                        this.clearCart();
+                    } else {
+                        this.showMessage = true;
+                        this.message = "Sorry - that is not enough money!";
+                        setTimeout(() => {
+                            this.showMessage = false;
+                            this.message = '';
+                        }, 3000);
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

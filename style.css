@@ -1,0 +1,75 @@
+body {
+    background-color: whitesmoke;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.pizza {
+    border: 1px solid;
+    padding: 1em;
+    margin: 1em;
+    margin-bottom: 0.5em; /* Corrected unit to "em" */
+    border-radius: 1em;
+}
+
+.small_pizza {
+    background-color: orange;
+    flex: 1;
+}
+
+.medium_pizza {
+    background-color: palevioletred;
+    flex: 2;
+}
+
+.large_pizza {
+    background-color: #AF5B5B;
+    flex: 3;
+}
+
+.contacts {
+    background-color: violet;
+}
+
+.special {
+    background-color: #F2A541;
+}
+
+@media (max-width: 960px) {
+    body {
+        background-color: gray;
+    }
+
+    .pizzas {
+        display: block; /* Change to block for smaller screens */
+    }
+}
+
+@media (min-width: 760px) {
+    body {
+        background-color: #C8963E;
+    }
+
+    .pizzas {
+        display: flex;
+    }
+}
+
+table {
+    width: 97%;
+    border-collapse: collapse;
+    background-color: #A3B18A;
+    border: 5px solid;
+    padding: 1em;
+    margin: 1em;
+    border-radius: 1em;
+}
+
+td {
+    padding: 10px;
+    border: 0.5px solid #A3B18A;
+    width: 20%;
+}
+
+.nthabi {
+    text-align: center;
+}
