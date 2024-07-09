@@ -1,60 +1,56 @@
-body {
+body{
     background-color: whitesmoke;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.pizza {
+.pizza{
     border: 1px solid;
     padding: 1em;
     margin: 1em;
-    margin-bottom: 0.5em; /* Corrected unit to "em" */
+    margin-bottom: 0.5em;
     border-radius: 1em;
 }
 
-.small_pizza {
+.small_pizza{
     background-color: orange;
     flex: 1;
 }
 
-.medium_pizza {
+.medium_pizza{
     background-color: palevioletred;
     flex: 2;
 }
 
-.large_pizza {
+.large_pizza{
     background-color: #AF5B5B;
     flex: 3;
 }
 
-.contacts {
+.contacts{
     background-color: violet;
 }
 
-.special {
+.special{
     background-color: #F2A541;
 }
 
-@media (max-width: 960px) {
-    body {
+@media(max-width: 960px){
+    body{
         background-color: gray;
-    }
-
-    .pizzas {
-        display: block; /* Change to block for smaller screens */
     }
 }
 
-@media (min-width: 760px) {
-    body {
+@media(min-width: 760px){
+    body{
         background-color: #C8963E;
     }
-
-    .pizzas {
+    
+    .pizzas{
         display: flex;
     }
 }
 
-table {
+table{
     width: 97%;
     border-collapse: collapse;
     background-color: #A3B18A;
@@ -72,4 +68,25 @@ td {
 
 .nthabi {
     text-align: center;
+}
+
+.increment, .decrement {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background-color: #A3B18A;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.increment:hover, .decrement:hover {
+    background-color: burlywood;
+}
+
+.cart p {
+    display: flex;
+    align-items: center;
 }

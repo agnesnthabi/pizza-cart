@@ -44,16 +44,31 @@
         <!-- Shopping Cart -->
         <div class="cart" x-show="cart.totalItems > 0">
             <h2>Your Cart</h2>
-            <div x-show="cart.small > 0">
-                <p>Small Pizzas: <span x-text="cart.small"></span> <button @click="removeFromCart('small')">Remove</button></p>
+            <div x-show="cart.small.count > 0">
+                <p>Small Pizzas: 
+                    <button class="decrement" @click="removeFromCart('small')">-</button>
+                    <span x-text="cart.small.count"></span>
+                    <button class="increment" @click="addToCart('small')">+</button>
+                    <span>R<span x-text="(cart.small.count * prices.small).toFixed(2)"></span></span>
+                </p>
             </div>
-            <div x-show="cart.medium > 0">
-                <p>Medium Pizzas: <span x-text="cart.medium"></span> <button @click="removeFromCart('medium')">Remove</button></p>
+            <div x-show="cart.medium.count > 0">
+                <p>Medium Pizzas: 
+                    <button class="decrement" @click="removeFromCart('medium')">-</button>
+                    <span x-text="cart.medium.count"></span>
+                    <button class="increment" @click="addToCart('medium')">+</button>
+                    <span>R<span x-text="(cart.medium.count * prices.medium).toFixed(2)"></span></span>
+                </p>
             </div>
-            <div x-show="cart.large > 0">
-                <p>Large Pizzas: <span x-text="cart.large"></span> <button @click="removeFromCart('large')">Remove</button></p>
+            <div x-show="cart.large.count > 0">
+                <p>Large Pizzas: 
+                    <button class="decrement" @click="removeFromCart('large')">-</button>
+                    <span x-text="cart.large.count"></span>
+                    <button class="increment" @click="addToCart('large')">+</button>
+                    <span>R<span x-text="(cart.large.count * prices.large).toFixed(2)"></span></span>
+                </p>
             </div>
-            <p>Total Cost: $<span x-text="cart.totalCost.toFixed(2)"></span></p>
+            <p>Total Cost: R<span x-text="cart.totalCost.toFixed(2)"></span></p>
             <div>
                 <button @click="checkout()">Check Out</button>
                 <button @click="clearCart()">Clear Cart</button>
@@ -68,9 +83,9 @@
         function pizzaCart() {
             return {
                 cart: {
-                    small: 0,
-                    medium: 0,
-                    large: 0,
+                    small: { count: 0 },
+                    medium: { count: 0 },
+                    large: { count: 0 },
                     totalItems: 0,
                     totalCost: 0
                 },
@@ -82,19 +97,25 @@
                 showMessage: false,
                 message: '',
                 addToCart(size) {
-                    this.cart[size]++;
+                    this.cart[size].count++;
                     this.cart.totalItems++;
                     this.cart.totalCost += this.prices[size];
                 },
                 removeFromCart(size) {
-                    if (this.cart[size] > 0) {
-                        this.cart[size]--;
+                    if (this.cart[size].count > 0) {
+                        this.cart[size].count--;
                         this.cart.totalItems--;
                         this.cart.totalCost -= this.prices[size];
                     }
                 },
                 clearCart() {
-                    this.cart = { small: 0, medium: 0, large: 0, totalItems: 0, totalCost: 0 };
+                    this.cart = {
+                        small: { count: 0 },
+                        medium: { count: 0 },
+                        large: { count: 0 },
+                        totalItems: 0,
+                        totalCost: 0
+                    };
                 },
                 checkout() {
                     const payment = prompt("Enter payment amount:");
