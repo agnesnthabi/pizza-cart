@@ -96,6 +96,7 @@
                 },
                 showMessage: false,
                 message: '',
+                change: 0,
                 addToCart(size) {
                     this.cart[size].count++;
                     this.cart.totalItems++;
@@ -120,8 +121,9 @@
                 checkout() {
                     const payment = prompt("Enter payment amount:");
                     if (payment >= this.cart.totalCost) {
+                        this.change = payment - this.cart.totalCost;
                         this.showMessage = true;
-                        this.message = "Enjoy your pizzas!";
+                        this.message = `Enjoy your pizzas! Your change is R${this.change.toFixed(2)}`;
                         this.clearCart();
                     } else {
                         this.showMessage = true;
